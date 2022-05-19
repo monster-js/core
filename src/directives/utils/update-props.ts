@@ -5,8 +5,8 @@ import { errorHandler } from "../../utils/error-handler";
 
 export function updateProps(wrapper: ComponentWrapperInstanceInterface, oldProps: ObjectInterface, isUpdate: boolean = false) {
 
-    if (!wrapper.isMunsterComponent) {
-        errorHandler(`The component '${wrapper.localName}' cannot use the prop directive. The component is not defined or not a MunsterJS component.`);
+    if (!wrapper.isMonsterComponent) {
+        errorHandler(`The component '${wrapper.localName}' cannot use the prop directive. The component is not defined or not a MonsterJS component.`);
     }
 
     (wrapper as any).$propsData = { ...oldProps };

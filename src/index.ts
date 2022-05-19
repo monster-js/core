@@ -54,6 +54,6 @@ export { createWatcher } from './utils/create-watcher';
 export { createConditionWatcher } from './utils/create-condition-watcher';
 export { Bind } from './utils/bind.decorator';
 export { EventEmitter } from './utils/event-emitter';
-export { munsterAsync } from './utils/munster-async';
+export { monsterAsync } from './utils/monster-async';
 
 export { hyperscript } from './view-engine/hyperscript';

@@ -18,7 +18,7 @@ export function componentFactory(component: ComponentInterface) {
         public component: ComponentInterface = component;
         public changeDetectionTracker: number = 0;
         public changeDetection: ChangeDetection = new ChangeDetection(this);
-        public isMunsterComponent: boolean = true;
+        public isMonsterComponent: boolean = true;
 
         public runningHooks: ObjectInterface<boolean> = {};
         public hooksWatchers: ObjectInterface<Function[]> = {};

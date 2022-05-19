@@ -9,6 +9,6 @@ export interface ComponentWrapperInstanceInterface extends HTMLElement {
     hooksCaller(type: HooksEnum): void;
     changeDetectionTracker: number;
     changeDetection: ChangeDetection;
-    isMunsterComponent: boolean;
+    isMonsterComponent: boolean;
     addHookWatcher(type: HooksEnum, callback: Function): void;
 }

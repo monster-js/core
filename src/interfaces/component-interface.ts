@@ -6,7 +6,7 @@ import { ServiceInterface } from "./service.interface";
 
 export interface ComponentInterface {
     new (...args: any[]): ComponentInstanceInterface;
-    isMunsterComponent?: boolean;
+    isMonsterComponent?: boolean;
     selector?: string;
     superClass?: CustomElementConstructor;
     directives?: ObjectInterface<({ new(...args: any[]): any })[]>;

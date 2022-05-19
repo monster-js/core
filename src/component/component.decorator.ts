@@ -26,7 +26,7 @@ export function Component(selector: string, superClass: CustomElementConstructor
             name: target.name,
             components: {}
         };
-        target.isMunsterComponent = true;
+        target.isMonsterComponent = true;
 
         // Apply default directives
         Directives(...defaults.directives)(target);
