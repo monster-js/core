@@ -5,6 +5,7 @@ import { ComponentInstanceInterface } from "../interfaces/component-instance.int
 import { ComponentInterface } from "../interfaces/component-interface";
 import { ComponentWrapperInstanceInterface } from "../interfaces/component-wrapper-instance.interface";
 import { ObjectInterface } from "../interfaces/object.interface";
+import { PipeInterface } from "../interfaces/pipe.interface";
 import { kebabToCamel } from "../utils/kebab-to-camel";
 import { setGetterProp } from "../utils/set-getter-prop";
 import { ViewEngine } from "../view-engine/view-engine";
@@ -25,6 +26,13 @@ export function componentFactory(component: ComponentInterface) {
 
         constructor() {
             super();
+        }
+
+        public pipe(selector: string, value: any, args: any[]) {
+            const pipes: ObjectInterface<PipeInterface> = this.component.pipes!;
+            const pipe = pipes[selector];
+            const instance = new pipe();
+            return instance.transform(value, args);
         }
 
         public addHookWatcher(type: HooksEnum, callback: Function): void {

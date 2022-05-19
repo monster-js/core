@@ -11,4 +11,5 @@ export interface ComponentWrapperInstanceInterface extends HTMLElement {
     changeDetection: ChangeDetection;
     isMonsterComponent: boolean;
     addHookWatcher(type: HooksEnum, callback: Function): void;
+    pipe(selector: string, value: any, args: any[]): string;
 }
