@@ -1,4 +1,6 @@
 export interface PipeInterface {
-    new(...args: any[]): any;
+    new(...args: any[]): {
+        transform(value?: any, args?: any[]): string;
+    };
     selector?: string;
 }
