@@ -3,10 +3,23 @@ import { ComponentInterface } from "../interfaces/component-interface";
 import { hyperscript } from "../view-engine/hyperscript";
 import { monsterAsync } from "./monster-async";
 
+
+/**
+ * Setup globals
+ */
 declare const globalThis: any;
 globalThis.v = hyperscript;
 globalThis.monsterAsync = monsterAsync;
 
+
+/**
+ * Polyfill customElements.define method
+ */
+declare global {
+    interface CustomElementRegistry {
+        define(name: string, constructor: CustomElementConstructor | ComponentInterface, options?: ElementDefinitionOptions): void;
+    }
+}
 const originalDefine = customElements.define;
 customElements.define = function(name: string, constructor: CustomElementConstructor | any, options?: ElementDefinitionOptions) {
     const monster: ComponentInterface = constructor;
