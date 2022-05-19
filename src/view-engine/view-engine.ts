@@ -1,7 +1,9 @@
 import { BaseComponent } from "../component/base-component";
+import { GlobalComponents } from "../component/global-components";
 import { HyperscriptTypeEnum } from "../enums/hyperscript-type.enum";
 import { ComponentWrapperInstanceInterface } from "../interfaces/component-wrapper-instance.interface";
 import { HyperscriptInterface } from "../interfaces/hyperscript.interface";
+import { ObjectInterface } from "../interfaces/object.interface";
 import { errorHandler } from "../utils/error-handler";
 import { applyAttributes } from "./utils/apply-attributes";
 import { applyChildren } from "./utils/apply-children";
@@ -38,10 +40,14 @@ export class ViewEngine {
 
         if (hs.name) {
             if (hs.name.indexOf('-') > 0) {
+                // TODO : improve code readability
                 const { definedComponents } = this.componentWrapperInstance.component;
                 const componentInstance: BaseComponent = this.componentWrapperInstance.componentInstance as any;
                 if (!definedComponents!.components[hs.name] && !(componentInstance.$definedComponents?.components || {})[hs.name]) {
-                    errorHandler(`The component '${hs.name}' is not defined in ${definedComponents!.name}.`);
+                    const global = new GlobalComponents();
+                    if (!global.get(hs.name)) {
+                        errorHandler(`The component '${hs.name}' is not defined in ${definedComponents!.name} and is not defined as a global component.`);
+                    }
                 }
             }
             if (hs.name === 'fragment') {

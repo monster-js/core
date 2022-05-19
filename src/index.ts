@@ -3,6 +3,7 @@ import 'reflect-metadata';
 export { Component } from './component/component.decorator';
 export { componentFactory } from './component/component-factory';
 export { BaseComponent } from './component/base-component';
+export { GlobalComponents } from './component/global-components';
 
 export { Attr } from './attribute/attr.decorator';
 export { AttrBoolean } from './attribute/attr-boolean.decorator';

@@ -15,11 +15,6 @@ globalThis.monsterAsync = monsterAsync;
 /**
  * Polyfill customElements.define method
  */
-declare global {
-    interface CustomElementRegistry {
-        define(name: string, constructor: CustomElementConstructor | ComponentInterface, options?: ElementDefinitionOptions): void;
-    }
-}
 const originalDefine = customElements.define;
 customElements.define = function(name: string, constructor: CustomElementConstructor | any, options?: ElementDefinitionOptions) {
     const monster: ComponentInterface = constructor;
