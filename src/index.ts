@@ -18,6 +18,9 @@ export { registerService } from './service/utils/register-service';
 export { Directives } from './directives/directives.decorator';
 export { Directive } from './directives/directive.decorator';
 
+export { Pipe } from './pipes/pipe.decorator';
+export { Pipes } from './pipes/pipes.decorator';
+
 export { AdoptedCallbackImpl } from './interfaces/impls/adopted-callback.impl';
 export { AfterViewInitImpl } from './interfaces/impls/after-view-init.impl';
 export { AllDirectivesImpl } from './interfaces/impls/all-directives.impl';
