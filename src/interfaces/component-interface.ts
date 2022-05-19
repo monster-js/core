@@ -1,6 +1,8 @@
 import { ComponentInstanceInterface } from "./component-instance.interface";
 import { DataSourceInterface } from "./data-source.interface";
+import { DirectiveInterface } from "./directive.interface";
 import { ObjectInterface } from "./object.interface";
+import { PipeInterface } from "./pipe.interface";
 import { ServiceWithConfigInterface } from "./service-with-config.interface";
 import { ServiceInterface } from "./service.interface";
 
@@ -9,7 +11,8 @@ export interface ComponentInterface {
     isMonsterComponent?: boolean;
     selector?: string;
     superClass?: CustomElementConstructor;
-    directives?: ObjectInterface<({ new(...args: any[]): any })[]>;
+    directives?: ObjectInterface<DirectiveInterface[]>;
+    pipes?: ObjectInterface<PipeInterface>;
     dataSource?: DataSourceInterface;
     services?: (ServiceInterface | ServiceWithConfigInterface)[];
     observedAttributesObject?: ObjectInterface;
