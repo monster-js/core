@@ -1,3 +1,5 @@
+import { ComponentWrapperInstanceInterface } from "./component-wrapper-instance.interface";
+
 export interface ComponentInstanceInterface
     // extends
     // Partial<ConnectedCallbackImpl>,
@@ -5,5 +7,6 @@ export interface ComponentInstanceInterface
     // Partial<DisconnectedCallbackImpl>,
     // Partial<OnPropsChangeImpl>
 {
+    $wrapper?: ComponentWrapperInstanceInterface;
     render(): any;
 }

@@ -12,8 +12,7 @@ export function directiveMethodCaller(
     const param: DirectiveArgInterface = {
         element,
         directive,
-        component: viewEngine.componentWrapperInstance.componentInstance,
-        componentWrapper: viewEngine.componentWrapperInstance
+        component: viewEngine.componentWrapperInstance.componentInstance
     };
     const method = `$${kebabToCamel(key)}`;
     if (instance[method] && typeof instance[method] === 'function') {

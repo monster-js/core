@@ -11,8 +11,7 @@ export function allDirectiveMethodCaller(
     const param: AllDirectivesArgInterface = {
         element,
         directives: directive,
-        component: viewEngine.componentWrapperInstance.componentInstance,
-        componentWrapper: viewEngine.componentWrapperInstance
+        component: viewEngine.componentWrapperInstance.componentInstance
     };
     const method = `allDirectives`;
     if (instance[method] && typeof instance[method] === 'function') {

@@ -1,5 +1,7 @@
+import { detectChanges } from "../component/detect-changes";
 import { DirectiveArgInterface } from "../interfaces/directive-arg.interface";
 import { createWatcher } from "../utils/create-watcher";
+import { watch } from "../utils/watch";
 import { Directive } from "./directive.decorator";
 
 @Directive('v')
@@ -25,10 +27,10 @@ export class ViewDirective {
         const cls = param.directive.get;
         const value = cls();
 
-        createWatcher(() => {
+        watch(() => {
             const newVal = cls();
             return Object.keys(newVal).map(key => newVal[key]).join();
-        }, param.element, param.componentWrapper, () => this.updateClassList(cls(), param.element));
+        }, param.element, param.component, () => this.updateClassList(cls(), param.element));
 
         this.updateClassList(value, param.element);
     }
@@ -57,9 +59,9 @@ export class ViewDirective {
         const valueSetter = param.directive.set!;
         param.element.addEventListener(eventType, event => {
             valueSetter((event.target as any).value);
-            param.componentWrapper.changeDetection.detectChanges();
+            detectChanges(param.component);
         });
-        createWatcher(() => valueCaller(), param.element, param.componentWrapper, newValue => {
+        watch(() => valueCaller(), param.element, param.component, newValue => {
             (param.element as any).value = newValue;
         });
         (param.element as any).value = valueCaller();

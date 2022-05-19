@@ -4,6 +4,7 @@ import { ObjectInterface } from "../interfaces/object.interface";
 import { createWatcher } from "../utils/create-watcher";
 import { kebabToCamel } from "../utils/kebab-to-camel";
 import { randomString } from "../utils/random-string";
+import { watch } from "../utils/watch";
 import { Directive } from "./directive.decorator";
 import { updateProps } from "./utils/update-props";
 
@@ -33,6 +34,6 @@ export class PropsDirective implements AllDirectivesImpl {
 
         valueCaller();
         updateProps(param.element as any, this.oldProps);
-        createWatcher(() => valueCaller(), param.element, param.componentWrapper, () => updateProps(param.element as any, this.oldProps, true))
+        watch(() => valueCaller(), param.element, param.component, () => updateProps(param.element as any, this.oldProps, true))
     }
 }
