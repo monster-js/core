@@ -1,5 +1,6 @@
 import { ComponentWrapperInstanceInterface } from "../../interfaces/component-wrapper-instance.interface";
 import { ObjectInterface } from "../../interfaces/object.interface";
+import { camelToKebab } from "../../utils/camel-to-kebab";
 import { createWatcher } from "../../utils/create-watcher";
 
 export function applyAttributes(
@@ -7,8 +8,9 @@ export function applyAttributes(
     attributes: ObjectInterface<string | (() => any)>,
     iComponentWrapper: ComponentWrapperInstanceInterface
 ) {
-    for(const key in attributes) {
-        const attribute = attributes[key];
+    for(const originalKey in attributes) {
+        const attribute = attributes[originalKey];
+        const key = camelToKebab(originalKey);
         if (typeof attribute === 'string') {
             element.setAttribute(key, attribute);
         } else {
