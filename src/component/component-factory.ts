@@ -1,4 +1,5 @@
 import { ChangeDetection } from "../change-detection/change-detection";
+import { Container } from "../dependency-injection/container";
 import { AttributeTypeEnum } from "../enums/attribute-type.enum";
 import { HooksEnum } from "../enums/hooks.enum";
 import { ComponentInstanceInterface } from "../interfaces/component-instance.interface";
@@ -35,8 +36,8 @@ export function componentFactory(component: ComponentInterface) {
             if (!pipe) {
                 errorHandler(`The pipe ${selector} is not found in ${this.component.name} component. Register the pipe in the component or in module before you can use it.`);
             }
-            const instance = new pipe();
-            return instance.transform(value, args);
+            const di = new Container(this.component.dataSource!);
+            return di.resolve(pipe).transform(value, args);
         }
 
         public addHookWatcher(type: HooksEnum, callback: Function): void {
