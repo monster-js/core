@@ -3,6 +3,7 @@ import { DirectiveArgInterface } from "../interfaces/directive-arg.interface";
 import { createWatcher } from "../utils/create-watcher";
 import { watch } from "../utils/watch";
 import { Directive } from "./directive.decorator";
+import { watchDirective } from "./utils/watch-directive";
 
 @Directive('v')
 export class ViewDirective {
@@ -61,9 +62,12 @@ export class ViewDirective {
             valueSetter((event.target as any).value);
             detectChanges(param.component);
         });
-        watch(() => valueCaller(), param.element, param.component, newValue => {
+        watchDirective(param, newValue => {
             (param.element as any).value = newValue;
         });
+        // watch(() => valueCaller(), param.element, param.component, newValue => {
+        //     (param.element as any).value = newValue;
+        // });
         (param.element as any).value = valueCaller();
     }
 }

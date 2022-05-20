@@ -1,12 +1,12 @@
 import { AllDirectivesArgInterface } from "../interfaces/all-directives-arg.interface";
 import { AllDirectivesImpl } from "../interfaces/impls/all-directives.impl";
 import { ObjectInterface } from "../interfaces/object.interface";
-import { createWatcher } from "../utils/create-watcher";
 import { kebabToCamel } from "../utils/kebab-to-camel";
 import { randomString } from "../utils/random-string";
 import { watch } from "../utils/watch";
 import { Directive } from "./directive.decorator";
 import { updateProps } from "./utils/update-props";
+import { watchDirective } from "./utils/watch-directive";
 
 @Directive('prop')
 export class PropsDirective implements AllDirectivesImpl {
