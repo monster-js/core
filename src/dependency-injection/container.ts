@@ -21,7 +21,17 @@ export class Container {
     }
 
     public register(target: any, config: DIConfigInterface) {
-        this.dataSource.data.set(target, { target, config });
+        /**
+         * If condition is to prevent overriding single data
+         */
+        if (config.singleton) {
+            const source = this.getSource(target);
+            if (!source) {
+                this.dataSource.data.set(target, { target, config });
+            }
+        } else {
+            this.dataSource.data.set(target, { target, config });
+        }
     }
 
     public resolve<T>(target: new () => T): T {
@@ -52,6 +62,9 @@ export class Container {
         /**
          * If singleton and has already an instance return the instance
          */
+        if (target.name === 'ChildService') {
+            console.log('singleton 1st check', sourceData.config.singleton, sourceData.config.instance, this.dataSource.name);
+        }
         if (sourceData.config.singleton && sourceData.config.instance) {
             return sourceData.config.instance;
         }
@@ -83,9 +96,22 @@ export class Container {
         /**
          * If singleton update instance in the data source
          */
+        if (target.name === 'ChildService') {
+            console.log('singleton 2nd check', sourceData.config.singleton);
+        }
         if (sourceData.config.singleton) {
             sourceData.config.instance = instance;
-            this.dataSource.data.set(target, sourceData);
+            if (target.name === 'ChildService') {
+                console.log('singleton 3rd check', sourceData.config.instance);
+            }
+            this.dataSource.data.set(target, {
+                ...sourceData,
+                config: {
+                    ...sourceData.config,
+                    instance: instance
+                }
+            });
+            console.log(this.dataSource.data.get(target));
         }
 
         return instance;

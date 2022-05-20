@@ -23,6 +23,7 @@ function registerServicesToDI(component: ComponentInterface, di: Container) {
         } else {
             target = service;
         }
+
         registerService(target, di, config)
     });
 }
