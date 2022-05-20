@@ -10,6 +10,7 @@ export function applyAttributes(
 ) {
     for(const originalKey in attributes) {
         const attribute = attributes[originalKey];
+        // TODO : find a way to set this kebab and camel during transformation
         const key = camelToKebab(originalKey);
         if (typeof attribute === 'string') {
             element.setAttribute(key, attribute);
