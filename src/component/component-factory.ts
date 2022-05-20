@@ -26,6 +26,8 @@ export function componentFactory(component: ComponentInterface) {
         public runningHooks: ObjectInterface<boolean> = {};
         public hooksWatchers: ObjectInterface<Function[]> = {};
 
+        public initialObservedAttributeValue: ObjectInterface = {};
+
         constructor() {
             super();
         }
@@ -50,6 +52,7 @@ export function componentFactory(component: ComponentInterface) {
         public buildComponent() {
             const viewEngine = new ViewEngine(this);
             this.componentInstance = autoResolveComponent(this.component);
+            this.applyInitialObservedAttributeValue();
             applyChangeDetection(this.componentInstance, this);
             setGetterProp(this.componentInstance, '$wrapper', () => this);
             this.hooksCaller(HooksEnum.onInit);
@@ -121,6 +124,15 @@ export function componentFactory(component: ComponentInterface) {
                 const instance: ObjectInterface = this.componentInstance;
                 instance[camelCaseName] = convertedNewValue;
                 this.hooksCaller(HooksEnum.attributeChangedCallback, [name, convertedOldValue, convertedNewValue, camelCaseName]);
+            } else {
+                this.initialObservedAttributeValue[camelCaseName] = convertedNewValue;
+            }
+        }
+
+        public applyInitialObservedAttributeValue() {
+            const instance: ObjectInterface = this.componentInstance;
+            for (const key in this.initialObservedAttributeValue) {
+                instance[key] = this.initialObservedAttributeValue[key];
             }
         }
     }
