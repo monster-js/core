@@ -117,10 +117,9 @@ export function componentFactory(component: ComponentInterface) {
                 }
             }
 
-            const instance: ObjectInterface = this.componentInstance;
-            instance[camelCaseName] = convertedNewValue;
-
             if (this.componentInstance) {
+                const instance: ObjectInterface = this.componentInstance;
+                instance[camelCaseName] = convertedNewValue;
                 this.hooksCaller(HooksEnum.attributeChangedCallback, [name, convertedOldValue, convertedNewValue, camelCaseName]);
             }
         }
