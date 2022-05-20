@@ -117,7 +117,7 @@ export function componentFactory(component: ComponentInterface) {
                 }
             }
 
-            const instance: ObjectInterface = this.component;
+            const instance: ObjectInterface = this.componentInstance;
             instance[camelCaseName] = convertedNewValue;
 
             if (this.componentInstance) {
