@@ -55,6 +55,7 @@ export { removeDuplicates } from './utils/remove-duplicates';
 export { Singleton } from './utils/singleton.decorator';
 export { errorHandler } from './utils/error-handler';
 export { createWatcher } from './utils/create-watcher';
+export { watch } from './utils/watch';
 export { createConditionWatcher } from './utils/create-condition-watcher';
 export { Bind } from './utils/bind.decorator';
 export { EventEmitter } from './utils/event-emitter';
