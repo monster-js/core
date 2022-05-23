@@ -17,6 +17,7 @@ export { registerService } from './service/utils/register-service';
 
 export { Directives } from './directives/directives.decorator';
 export { Directive } from './directives/directive.decorator';
+export { watchDirective } from './directives/utils/watch-directive';
 
 export { Pipe } from './pipes/pipe.decorator';
 export { Pipes } from './pipes/pipes.decorator';
