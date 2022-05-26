@@ -1,6 +1,6 @@
 {
   "name": "@monster-js/core",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
@@ -11,6 +11,7 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "major-release": "npm version major && npm run build",
+    "minor-release": "npm version minor && npm run build",
     "patch-release": "npm version patch && npm run build",
     "lint": "tsc --noEmit"
   },
