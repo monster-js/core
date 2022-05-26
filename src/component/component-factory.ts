@@ -51,15 +51,36 @@ export function componentFactory(component: ComponentInterface) {
 
         public buildComponent() {
             const viewEngine = new ViewEngine(this);
+            this.setupComponent();
+            this.hooksCaller(HooksEnum.onInit);
+            this.hooksCaller(HooksEnum.beforeViewInit);
+            this.appendElement(viewEngine.doBuildElement(this.componentInstance.render()));
+            this.hooksCaller(HooksEnum.afterViewInit);
+            this.changeDetection.connected();
+        }
+
+        public appendElement(element: HTMLElement) {
+            let root: HTMLElement | ShadowRoot = this;
+            if (this.component.shadowMode) {
+                root = this.attachShadow({ mode: this.component.shadowMode });
+                this.applyShadowStyle(root);
+            }
+            root.appendChild(element);
+        }
+
+        public applyShadowStyle(root: ShadowRoot) {
+            if (this.component.shadowStyle) {
+                const style = document.createElement('style');
+                style.innerHTML = this.component.shadowStyle;
+                root.appendChild(style);
+            }
+        }
+
+        public setupComponent() {
             this.componentInstance = autoResolveComponent(this.component);
             this.applyInitialObservedAttributeValue();
             applyChangeDetection(this.componentInstance, this);
             setGetterProp(this.componentInstance, '$wrapper', () => this);
-            this.hooksCaller(HooksEnum.onInit);
-            this.hooksCaller(HooksEnum.beforeViewInit);
-            this.appendChild(viewEngine.doBuildElement(this.componentInstance.render()));
-            this.hooksCaller(HooksEnum.afterViewInit);
-            this.changeDetection.connected();
         }
 
         static get observedAttributes() {

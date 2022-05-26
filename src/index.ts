@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 
 export { Component } from './component/component.decorator';
+export { ShadowComponent } from './component/shadow-component.decorator';
+export { ShadowStyle } from './component/shadow-style.decorator';
 export { componentFactory } from './component/component-factory';
 export { BaseComponent } from './component/base-component';
 export { GlobalComponents } from './component/global-components';
