@@ -1,6 +1,6 @@
 {
   "name": "@monster-js/core",
-  "version": "0.0.18",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
