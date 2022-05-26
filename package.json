@@ -10,7 +10,8 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "patch-release": "npm run build && npm version patch",
+    "major-release": "npm version major && npm run build",
+    "patch-release": "npm version patch && npm run build",
     "lint": "tsc --noEmit"
   },
   "devDependencies": {
