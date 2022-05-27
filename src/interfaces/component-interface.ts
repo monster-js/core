@@ -13,6 +13,7 @@ export interface ComponentInterface {
     isMonsterComponent?: boolean;
     selector?: string;
     superClass?: CustomElementConstructor;
+    extendsLocalName?: string;
     directives?: ObjectInterface<DirectiveInterface[]>;
     pipes?: ObjectInterface<PipeInterface>;
     dataSource?: DataSourceInterface;

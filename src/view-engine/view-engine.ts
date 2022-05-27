@@ -3,7 +3,6 @@ import { GlobalComponents } from "../component/global-components";
 import { HyperscriptTypeEnum } from "../enums/hyperscript-type.enum";
 import { ComponentWrapperInstanceInterface } from "../interfaces/component-wrapper-instance.interface";
 import { HyperscriptInterface } from "../interfaces/hyperscript.interface";
-import { ObjectInterface } from "../interfaces/object.interface";
 import { errorHandler } from "../utils/error-handler";
 import { applyAttributes } from "./utils/apply-attributes";
 import { applyChildren } from "./utils/apply-children";
@@ -54,8 +53,13 @@ export class ViewEngine {
                 element = document.createDocumentFragment() as unknown as HTMLElement;
                 applyChildren(element, hs.children || [], this);
             } else {
-                element = document.createElement(hs.name);
-                applyAttributes(element, hs.attributes || {}, this.componentWrapperInstance);
+                const attributes = hs.attributes || {};
+                if (attributes.is) {
+                    element = document.createElement(hs.name, { is: attributes.is as any });
+                } else {
+                    element = document.createElement(hs.name);
+                }
+                applyAttributes(element, attributes, this.componentWrapperInstance);
                 applyChildren(element, hs.children || [], this);
                 this.applyDirectiveCallbacks.push(() => applyDirectives(element, hs.directives || {}, this));
             }

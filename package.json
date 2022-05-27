@@ -1,6 +1,6 @@
 {
   "name": "@monster-js/core",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
@@ -10,9 +10,6 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "major-release": "npm version major && npm run build",
-    "minor-release": "npm version minor && npm run build",
-    "patch-release": "npm version patch && npm run build",
     "lint": "tsc --noEmit"
   },
   "devDependencies": {
@@ -26,5 +23,9 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/monster-js/core"
   }
 }

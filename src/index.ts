@@ -1,11 +1,19 @@
 import 'reflect-metadata';
 
+/**
+ * is attribute
+ * slots
+ * react hooks like component
+ */
+
 export { Component } from './component/component.decorator';
 export { ShadowComponent } from './component/shadow-component.decorator';
 export { ShadowStyle } from './component/shadow-style.decorator';
 export { componentFactory } from './component/component-factory';
 export { BaseComponent } from './component/base-component';
 export { GlobalComponents } from './component/global-components';
+export { CustomElement } from './component/custom-element.decorator';
+export { defineComponent } from './component/define-component';
 
 export { Attr } from './attribute/attr.decorator';
 export { AttrBoolean } from './attribute/attr-boolean.decorator';
