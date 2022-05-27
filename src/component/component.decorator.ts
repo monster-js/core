@@ -14,10 +14,9 @@ const defaults = {
     ]
 };
 
-export function Component(selector: string, superClass: CustomElementConstructor = HTMLElement) {
+export function Component(selector: string) {
     return function(target: ComponentInterface) {
         target.selector = selector;
-        target.superClass = superClass;
         target.dataSource = {
             data: new Map(),
             name: target.name
