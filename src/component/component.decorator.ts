@@ -30,5 +30,7 @@ export function Component(selector: string, superClass: CustomElementConstructor
 
         // Apply default directives
         Directives(...defaults.directives)(target);
+
+        return target;
     }
 }

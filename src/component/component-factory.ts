@@ -15,10 +15,34 @@ import { applyChangeDetection } from "./utils/apply-change-detection";
 import { autoResolveComponent } from "./utils/auto-resolve-component";
 
 export function componentFactory(component: ComponentInterface) {
-    return class extends (component.superClass || HTMLElement) implements ComponentWrapperInstanceInterface {
+
+    let isHooksComponent: boolean = false;
+    let formattedComponent: ComponentInterface;
+    if (!component.prototype.render) {
+        isHooksComponent = true;
+        formattedComponent = class {
+            public static shadowMode = component.shadowMode;
+            public static shadowStyle = component.shadowStyle;
+            public static isMonsterComponent = component.isMonsterComponent;
+            public static selector = component.selector;
+            public static superClass = component.superClass;
+            public static directives = component.directives;
+            public static pipes = component.pipes;
+            public static dataSource = component.dataSource;
+            public static services = component.services;
+            public static observedAttributesArray = component.observedAttributesArray;
+            public static observedAttributesObject = component.observedAttributesObject;
+            public static definedComponents = component.definedComponents;
+            render = component as any;
+        };
+    } else {
+        formattedComponent = component;
+    }
+
+    return class extends (formattedComponent.superClass || HTMLElement) implements ComponentWrapperInstanceInterface {
 
         public componentInstance: ComponentInstanceInterface = null!;
-        public component: ComponentInterface = component;
+        public component: ComponentInterface = formattedComponent;
         public changeDetectionTracker: number = 0;
         public changeDetection: ChangeDetection = new ChangeDetection(this);
         public isMonsterComponent: boolean = true;
@@ -50,11 +74,15 @@ export function componentFactory(component: ComponentInterface) {
         }
 
         public buildComponent() {
+            let renderedData;
             const viewEngine = new ViewEngine(this);
             this.setupComponent();
+            if (isHooksComponent) {
+                renderedData = this.componentInstance.render();
+            }
             this.hooksCaller(HooksEnum.onInit);
             this.hooksCaller(HooksEnum.beforeViewInit);
-            this.appendElement(viewEngine.doBuildElement(this.componentInstance.render()));
+            this.appendElement(viewEngine.doBuildElement(isHooksComponent ? renderedData : this.componentInstance.render()));
             this.hooksCaller(HooksEnum.afterViewInit);
             this.changeDetection.connected();
         }
@@ -84,7 +112,7 @@ export function componentFactory(component: ComponentInterface) {
         }
 
         static get observedAttributes() {
-            return component.observedAttributesArray || [];
+            return formattedComponent.observedAttributesArray || [];
         }
 
         public hooksCaller(type: HooksEnum, args: any[] = []) {
@@ -118,7 +146,7 @@ export function componentFactory(component: ComponentInterface) {
         }
 
         attributeChangedCallback(name: string, oldValue: any, newValue: any): void {
-            const observedAttributesObject: {[key: string]: AttributeTypeEnum} = component.observedAttributesObject || {};
+            const observedAttributesObject: {[key: string]: AttributeTypeEnum} = formattedComponent.observedAttributesObject || {};
             const camelCaseName = kebabToCamel(name);
             let convertedNewValue: any;
             let convertedOldValue: any;
