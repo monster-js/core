@@ -14,7 +14,7 @@ export { BaseComponent } from './component/base-component';
 export { GlobalComponents } from './component/global-components';
 export { useEffect } from './component/utils/use-effect';
 export { useState } from './component/utils/use-state';
-export { hooksComponent } from './component/utils/hooks-component';
+export { fnComponent } from './component/utils/fn-component';
 export { CustomElement } from './component/custom-element.decorator';
 export { defineComponent } from './component/define-component';
 

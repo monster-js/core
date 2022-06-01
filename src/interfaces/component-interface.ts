@@ -8,6 +8,7 @@ import { ServiceInterface } from "./service.interface";
 
 export interface ComponentInterface {
     new (...args: any[]): ComponentInstanceInterface;
+    inject?: ObjectInterface;
     shadowMode?: ShadowRootMode;
     shadowStyle?: string;
     isMonsterComponent?: boolean;

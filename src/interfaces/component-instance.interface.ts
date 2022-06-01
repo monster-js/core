@@ -10,6 +10,7 @@ import { OnDestroyImpl } from "./impls/on-destroy.impl";
 import { OnInitImpl } from "./impls/on-init.impl";
 import { OnPropsChangeImpl } from "./impls/on-props-change.impl";
 import { OnViewChangeImpl } from "./impls/on-view-change.impl";
+import { ObjectInterface } from "./object.interface";
 
 export interface ComponentInstanceInterface
     extends
@@ -26,5 +27,5 @@ export interface ComponentInstanceInterface
     Partial<OnChangeDetectionImpl>
 {
     $wrapper?: ComponentWrapperInstanceInterface;
-    render(): any;
+    render(injections?: ObjectInterface): any;
 }

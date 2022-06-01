@@ -21,6 +21,7 @@ export function componentFactory(component: ComponentInterface) {
     if (!component.prototype.render) {
         isHooksComponent = true;
         formattedComponent = class {
+            public static inject = component.inject;
             public static shadowMode = component.shadowMode;
             public static shadowStyle = component.shadowStyle;
             public static isMonsterComponent = component.isMonsterComponent;
@@ -77,12 +78,26 @@ export function componentFactory(component: ComponentInterface) {
             let renderedData;
             const viewEngine = new ViewEngine(this);
             this.setupComponent();
+
             if (isHooksComponent) {
-                renderedData = this.componentInstance.render();
+
+
+                /**
+                 * Resolve injections
+                 */
+                const injections: ObjectInterface = {};
+                const di = new Container(formattedComponent.dataSource!);
+                for (const key in formattedComponent.inject) {
+                    injections[key] = di.resolve(formattedComponent.inject[key], this.componentInstance);
+                }
+
+
+                renderedData = this.componentInstance.render(injections);
             }
+
             this.hooksCaller(HooksEnum.onInit);
             this.hooksCaller(HooksEnum.beforeViewInit);
-            this.appendElement(viewEngine.doBuildElement(isHooksComponent ? renderedData : this.componentInstance.render()));
+            this.appendElement(viewEngine.doBuildElement(renderedData || this.componentInstance.render()));
             this.hooksCaller(HooksEnum.afterViewInit);
             this.changeDetection.connected();
         }
