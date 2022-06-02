@@ -74,25 +74,25 @@ export function componentFactory(component: ComponentInterface) {
             this.hooksWatchers[type].push(callback);
         }
 
+        /**
+         * Resolve injections for functional components
+         */
+        public resolveInjections(): ObjectInterface {
+            const injections: ObjectInterface = {};
+            const di = new Container(formattedComponent.dataSource!);
+            for (const key in formattedComponent.inject) {
+                injections[key] = di.resolve(formattedComponent.inject[key], this.componentInstance);
+            }
+            return injections;
+        }
+
         public buildComponent() {
             let renderedData;
             const viewEngine = new ViewEngine(this);
             this.setupComponent();
 
             if (isHooksComponent) {
-
-
-                /**
-                 * Resolve injections
-                 */
-                const injections: ObjectInterface = {};
-                const di = new Container(formattedComponent.dataSource!);
-                for (const key in formattedComponent.inject) {
-                    injections[key] = di.resolve(formattedComponent.inject[key], this.componentInstance);
-                }
-
-
-                renderedData = this.componentInstance.render(injections);
+                renderedData = this.componentInstance.render(this.resolveInjections());
             }
 
             this.hooksCaller(HooksEnum.onInit);

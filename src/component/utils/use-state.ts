@@ -1,11 +1,9 @@
 import { ComponentInstanceInterface } from "../../interfaces/component-instance.interface";
 
-type UseStateReturnType = (component: ComponentInstanceInterface, initialValue: any) => [() => any, (value: any) => void];
-
-export const useState: UseStateReturnType = (component: ComponentInstanceInterface, initialValue: any) => {
+export function useState<T = any>(component: ComponentInstanceInterface, initialValue: T): [() => T, (value: T) => void] {
     let val = initialValue;
     const getter = () => val;
-    const setter = (value: any) => {
+    const setter = (value: T) => {
         val = value;
         component.$wrapper?.changeDetection.detectChanges();
     };
