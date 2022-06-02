@@ -14,15 +14,26 @@ interface HooksComponentConfigInterface<T> {
     directives?: DirectiveInterface[];
     pipes?: PipeInterface[];
     services?: (ServiceInterface | ServiceWithConfigInterface)[];
+    shadowMode?: ShadowRootMode;
+    customElement?: {
+        superClass: CustomElementConstructor;
+        extends: string
+    };
 }
 
 export function fnComponent<T = ObjectInterface>(selector: string, component: (injections?: T) => any, config: HooksComponentConfigInterface<T> = {}): ComponentInterface {
 
-    Component(selector)(component as any);
-    Services(...(config.services || []))(component as any);
-    Directives(...(config.directives || []))(component as any);
-    Pipes(...(config.pipes || []))(component as any);
-    (component as unknown as ComponentInterface).inject = config.inject || {};
+    const target = (component as unknown as ComponentInterface);
 
-    return component as any;
+    Component(selector)(target);
+    Services(...(config.services || []))(target);
+    Directives(...(config.directives || []))(target);
+    Pipes(...(config.pipes || []))(target);
+    target.inject = config.inject || {};
+
+    target.shadowMode = config.shadowMode;
+    target.superClass = config?.customElement?.superClass;
+    target.extendsLocalName = config?.customElement?.extends;
+
+    return target;
 }
