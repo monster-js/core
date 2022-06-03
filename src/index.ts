@@ -12,6 +12,9 @@ export { ShadowStyle } from './component/shadow-style.decorator';
 export { componentFactory } from './component/component-factory';
 export { BaseComponent } from './component/base-component';
 export { GlobalComponents } from './component/global-components';
+export { useEffect } from './component/utils/use-effect';
+export { useState } from './component/utils/use-state';
+export { fnComponent } from './component/utils/fn-component';
 export { CustomElement } from './component/custom-element.decorator';
 export { defineComponent } from './component/define-component';
 
@@ -73,3 +76,5 @@ export { EventEmitter } from './utils/event-emitter';
 export { monsterAsync } from './utils/monster-async';
 
 export { hyperscript } from './view-engine/hyperscript';
+
+export { HooksEnum } from './enums/hooks.enum';

@@ -34,7 +34,7 @@ export class Container {
         }
     }
 
-    public resolve<T>(target: new () => T): T {
+    public resolve<T>(target: new () => T, customParent?: any): T {
         let sourceData: DataSourceDataInterface = this.dataSource.data.get(target)!;
 
 
@@ -83,6 +83,15 @@ export class Container {
                 item.onReceiveParent(instance);
             }
         });
+
+
+        /**
+         * instance will receive the custom parent if there is a custom parent
+         * and the instance has onReceiveParent hook
+         */
+        if (instance.onReceiveParent && typeof instance.onReceiveParent === 'function') {
+            instance.onReceiveParent(customParent);
+        }
 
 
         /**
