@@ -8,6 +8,7 @@ import { ServiceInterface } from "../../interfaces/service.interface";
 import { Pipes } from "../../pipes/pipes.decorator";
 import { Services } from "../../service/services.decorator";
 import { Component } from "../component.decorator";
+import { ShadowStyle } from "../shadow-style.decorator";
 
 interface HooksComponentConfigInterface<T> {
     inject?: T;
@@ -15,13 +16,18 @@ interface HooksComponentConfigInterface<T> {
     pipes?: PipeInterface[];
     services?: (ServiceInterface | ServiceWithConfigInterface)[];
     shadowMode?: ShadowRootMode;
+    shadowStyle?: string;
     customElement?: {
         superClass: CustomElementConstructor;
         extends: string
     };
 }
 
-export function fnComponent<T = ObjectInterface>(selector: string, component: (injections?: T) => any, config: HooksComponentConfigInterface<T> = {}): ComponentInterface {
+export function fnComponent<T = ObjectInterface>(
+    selector: string,
+    component: (injections?: T) => any,
+    config: HooksComponentConfigInterface<T> = {}
+): ComponentInterface {
 
     const target = (component as unknown as ComponentInterface);
 
@@ -34,6 +40,10 @@ export function fnComponent<T = ObjectInterface>(selector: string, component: (i
     target.shadowMode = config.shadowMode;
     target.superClass = config?.customElement?.superClass;
     target.extendsLocalName = config?.customElement?.extends;
+
+    if (target.shadowMode) {
+        ShadowStyle(config.shadowStyle!)(target);
+    }
 
     return target;
 }
