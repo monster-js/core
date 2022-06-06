@@ -16,7 +16,6 @@ interface HooksComponentConfigInterface<T> {
     pipes?: PipeInterface[];
     services?: (ServiceInterface | ServiceWithConfigInterface)[];
     shadowMode?: ShadowRootMode;
-    shadowStyle?: string;
     customElement?: {
         superClass: CustomElementConstructor;
         extends: string
@@ -41,8 +40,8 @@ export function fnComponent<T = ObjectInterface>(
     target.superClass = config?.customElement?.superClass;
     target.extendsLocalName = config?.customElement?.extends;
 
-    if (target.shadowMode) {
-        ShadowStyle(config.shadowStyle!)(target);
+    if (config.shadowMode && (config as any).shadowStyle) {
+        ShadowStyle((config as any).shadowStyle)(target);
     }
 
     return target;
