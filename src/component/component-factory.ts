@@ -8,6 +8,7 @@ import { ComponentWrapperInstanceInterface } from "../interfaces/component-wrapp
 import { ObjectInterface } from "../interfaces/object.interface";
 import { PipeInterface } from "../interfaces/pipe.interface";
 import { errorHandler } from "../utils/error-handler";
+import { isTesting } from "../utils/is-testing";
 import { kebabToCamel } from "../utils/kebab-to-camel";
 import { setGetterProp } from "../utils/set-getter-prop";
 import { ViewEngine } from "../view-engine/view-engine";
@@ -52,6 +53,10 @@ export function componentFactory(component: ComponentInterface) {
         public hooksWatchers: ObjectInterface<Function[]> = {};
 
         public initialObservedAttributeValue: ObjectInterface = {};
+
+        public getElement(): HTMLElement {
+            return null!;    
+        }
 
         constructor() {
             super();
@@ -108,6 +113,11 @@ export function componentFactory(component: ComponentInterface) {
                 root = this.attachShadow({ mode: this.component.shadowMode });
                 this.applyShadowStyle(root);
             }
+
+            if (isTesting()) {
+                this.getElement = () => element;
+            }
+
             root.appendChild(element);
         }
 
