@@ -29,7 +29,5 @@ export function Component(selector: string) {
 
         // Apply default directives
         Directives(...defaults.directives)(target);
-
-        return target;
     }
 }
