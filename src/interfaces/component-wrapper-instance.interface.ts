@@ -13,4 +13,5 @@ export interface ComponentWrapperInstanceInterface extends HTMLElement {
     addHookWatcher(type: HooksEnum, callback: Function): void;
     pipe(selector: string, value: any, args: any[]): string;
     getElement(): HTMLElement;
+    getShadowRoot(): ShadowRoot;
 }

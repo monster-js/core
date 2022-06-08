@@ -58,6 +58,10 @@ export function componentFactory(component: ComponentInterface) {
             return null!;    
         }
 
+        public getShadowRoot(): ShadowRoot {
+            return null!;
+        }
+
         constructor() {
             super();
         }
@@ -112,6 +116,7 @@ export function componentFactory(component: ComponentInterface) {
             if (this.component.shadowMode) {
                 root = this.attachShadow({ mode: this.component.shadowMode });
                 this.applyShadowStyle(root);
+                this.getShadowRoot = () => root as ShadowRoot;
             }
 
             if (isTesting()) {
