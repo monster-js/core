@@ -1,6 +1,6 @@
 {
   "name": "@monster-js/core",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "main": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
