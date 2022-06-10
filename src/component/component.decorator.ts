@@ -4,6 +4,7 @@ import { PreventEventDirective } from "../directives/prevent-event.directive";
 import { PropsDirective } from "../directives/props.directive";
 import { ViewDirective } from "../directives/view.directive";
 import { ComponentInterface } from "../interfaces/component-interface";
+import { checkComponentDataSource } from "./utils/check-component-data-source";
 
 const defaults = {
     directives: [
@@ -17,10 +18,9 @@ const defaults = {
 export function Component(selector: string) {
     return function(target: ComponentInterface) {
         target.selector = selector;
-        target.dataSource = {
-            data: new Map(),
-            name: target.name
-        };
+
+        checkComponentDataSource(target);
+
         target.definedComponents = {
             name: target.name,
             components: {}
@@ -29,7 +29,5 @@ export function Component(selector: string) {
 
         // Apply default directives
         Directives(...defaults.directives)(target);
-
-        return target;
     }
 }

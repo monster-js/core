@@ -12,6 +12,12 @@ export class Container {
         this.dataSource = dataSource;
     }
 
+    public mock(target: new (...args: any[]) => any, mock: any) {
+        const data = this.getSource(target);
+        data.mock = mock;
+        this.update(target, data);
+    }
+
     public getSource<T>(target: T): DataSourceDataInterface {
         return this.dataSource.data.get(target)!;
     }
@@ -20,7 +26,7 @@ export class Container {
         this.dataSource.data.set(target, config);
     }
 
-    public register(target: any, config: DIConfigInterface) {
+    public register(target: new (...args: any[]) => any, config: DIConfigInterface) {
         /**
          * If condition is to prevent overriding single data
          */
@@ -34,8 +40,17 @@ export class Container {
         }
     }
 
-    public resolve<T>(target: new () => T, customParent?: any): T {
+    public resolve<T = any>(target: new (...args: any[]) => T, customParent?: any): T {
         let sourceData: DataSourceDataInterface = this.dataSource.data.get(target)!;
+
+
+        /**
+         * If there is a mock data
+         * then, return the mock data
+         */
+        if (sourceData.mock) {
+            return sourceData.mock;
+        }
 
 
         /**
@@ -62,9 +77,6 @@ export class Container {
         /**
          * If singleton and has already an instance return the instance
          */
-        if (target.name === 'ChildService') {
-            console.log('singleton 1st check', sourceData.config.singleton, sourceData.config.instance, this.dataSource.name);
-        }
         if (sourceData.config.singleton && sourceData.config.instance) {
             return sourceData.config.instance;
         }
@@ -105,14 +117,8 @@ export class Container {
         /**
          * If singleton update instance in the data source
          */
-        if (target.name === 'ChildService') {
-            console.log('singleton 2nd check', sourceData.config.singleton);
-        }
         if (sourceData.config.singleton) {
             sourceData.config.instance = instance;
-            if (target.name === 'ChildService') {
-                console.log('singleton 3rd check', sourceData.config.instance);
-            }
             this.dataSource.data.set(target, {
                 ...sourceData,
                 config: {
@@ -120,7 +126,6 @@ export class Container {
                     instance: instance
                 }
             });
-            console.log(this.dataSource.data.get(target));
         }
 
         return instance;

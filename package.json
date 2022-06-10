@@ -1,21 +1,22 @@
 {
   "name": "@monster-js/core",
   "version": "1.2.2",
-  "main": "dist/index.js",
+  "main": "src/index.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./polyfill": "./dist/utils/polyfill.js"
+    ".": "./src/index.ts",
+    "./polyfill": "./src/utils/polyfill.ts"
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch",
     "lint": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/node": "^17.0",
     "@types/reflect-metadata": "^0.1",
-    "typescript": "^4",
+    "typescript": "^4"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "^7.18",
     "reflect-metadata": "^0.1"
   },
   "dependencies": {

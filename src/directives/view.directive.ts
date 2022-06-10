@@ -65,9 +65,6 @@ export class ViewDirective {
         watchDirective(param, newValue => {
             (param.element as any).value = newValue;
         });
-        // watch(() => valueCaller(), param.element, param.component, newValue => {
-        //     (param.element as any).value = newValue;
-        // });
         (param.element as any).value = valueCaller();
     }
 }
