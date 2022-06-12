@@ -48,7 +48,7 @@ export class Container {
          * If there is a mock data
          * then, return the mock data
          */
-        if (sourceData.mock) {
+        if (sourceData?.mock) {
             return sourceData.mock;
         }
 
