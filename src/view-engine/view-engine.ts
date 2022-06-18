@@ -3,7 +3,6 @@ import { GlobalComponents } from "../component/global-components";
 import { HyperscriptTypeEnum } from "../enums/hyperscript-type.enum";
 import { ComponentWrapperInstanceInterface } from "../interfaces/component-wrapper-instance.interface";
 import { HyperscriptInterface } from "../interfaces/hyperscript.interface";
-import { errorHandler } from "../utils/error-handler";
 import { applyAttributes } from "./utils/apply-attributes";
 import { applyChildren } from "./utils/apply-children";
 import { applyDirectives } from "./utils/apply-directives";
@@ -45,7 +44,7 @@ export class ViewEngine {
                 if (!definedComponents!.components[hs.name] && !(componentInstance.$definedComponents?.components || {})[hs.name]) {
                     const global = new GlobalComponents();
                     if (!global.get(hs.name)) {
-                        errorHandler(`The component '${hs.name}' is not defined in ${definedComponents!.name} and is not defined as a global component.`);
+                        throw `The component '${hs.name}' is not defined in ${definedComponents!.name} and is not defined as a global component.`;
                     }
                 }
             }
