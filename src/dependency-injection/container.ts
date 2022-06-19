@@ -60,14 +60,12 @@ export class Container {
             const globalSource = new GlobalDataSource();
             if (globalSource === this.dataSource) {
                 throw `${target.name} is not registered in global dependency injection container.`;
-                return null!;
             }
 
             const di = new Container(globalSource);
             sourceData = di.getSource(target);
 
             if (!sourceData) {
-                console.log('in here');
                 throw `${target.name} is not registered in ${this.dataSource.name} and in global dependency injection container.`;
             }
         }
