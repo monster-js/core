@@ -67,7 +67,6 @@ export { GlobalDataSource } from './dependency-injection/global-data-source';
 export { getSelector } from './utils/get-selector';
 export { removeDuplicates } from './utils/remove-duplicates';
 export { Singleton } from './utils/singleton.decorator';
-export { errorHandler } from './utils/error-handler';
 export { createWatcher } from './utils/create-watcher';
 export { watch } from './utils/watch';
 export { createConditionWatcher } from './utils/create-condition-watcher';

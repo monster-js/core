@@ -7,7 +7,6 @@ import { ComponentInterface } from "../interfaces/component-interface";
 import { ComponentWrapperInstanceInterface } from "../interfaces/component-wrapper-instance.interface";
 import { ObjectInterface } from "../interfaces/object.interface";
 import { PipeInterface } from "../interfaces/pipe.interface";
-import { errorHandler } from "../utils/error-handler";
 import { isTesting } from "../utils/is-testing";
 import { kebabToCamel } from "../utils/kebab-to-camel";
 import { setGetterProp } from "../utils/set-getter-prop";
@@ -70,7 +69,7 @@ export function componentFactory(component: ComponentInterface) {
             const pipes: ObjectInterface<PipeInterface> = this.component.pipes!;
             const pipe = pipes[selector];
             if (!pipe) {
-                errorHandler(`The pipe ${selector} is not found in ${this.component.name} component. Register the pipe in the component or in module before you can use it.`);
+                throw `The pipe ${selector} is not found in ${this.component.name} component. Register the pipe in the component or in module before you can use it.`;
             }
             const di = new Container(this.component.dataSource!);
             return di.resolve(pipe).transform(value, args);

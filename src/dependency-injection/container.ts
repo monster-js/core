@@ -1,7 +1,6 @@
 import { DataSourceDataInterface } from "../interfaces/data-source-data.interface";
 import { DataSourceInterface } from "../interfaces/data-source.interface";
 import { DIConfigInterface } from "../interfaces/di-config.interface";
-import { errorHandler } from "../utils/error-handler";
 import { GlobalDataSource } from "./global-data-source";
 
 export class Container {
@@ -60,16 +59,14 @@ export class Container {
 
             const globalSource = new GlobalDataSource();
             if (globalSource === this.dataSource) {
-                errorHandler(`${target.name} is not registered in global dependency injection container.`);
-                return null!;
+                throw `${target.name} is not registered in global dependency injection container.`;
             }
 
             const di = new Container(globalSource);
             sourceData = di.getSource(target);
 
             if (!sourceData) {
-                errorHandler(`${target.name} is not registered in ${this.dataSource.name} and in global dependency injection container.`);
-                return null!;
+                throw `${target.name} is not registered in ${this.dataSource.name} and in global dependency injection container.`;
             }
         }
 
