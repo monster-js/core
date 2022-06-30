@@ -2,7 +2,6 @@ import { Container } from "../../dependency-injection/container";
 import { HooksEnum } from "../../enums/hooks.enum";
 import { ObjectInterface } from "../../interfaces/object.interface";
 import { ViewDirectiveType } from "../../types/view-directive.type";
-import { errorHandler } from "../../utils/error-handler";
 import { ViewEngine } from "../view-engine";
 import { allDirectiveMethodCaller } from "./all-directive-method-caller";
 import { directiveMethodCaller } from "./directive-method-caller";
@@ -16,7 +15,7 @@ export function applyDirectives(element: HTMLElement, viewDirective: ViewDirecti
         const selectedDirectives = directives[key];
         const selectedViewDirective = viewDirective[key];
         if (!selectedDirectives) {
-            errorHandler(`Directive '${key}' is not registered in ${viewEngine.componentWrapperInstance.component.dataSource!.name}`);
+            throw `Directive '${key}' is not registered in ${viewEngine.componentWrapperInstance.component.dataSource!.name}`;
         }
         selectedDirectives.forEach(directive => {
             const instance = di.resolve(directive);

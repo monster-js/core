@@ -1,7 +1,5 @@
 import { detectChanges } from "../component/detect-changes";
 import { DirectiveArgInterface } from "../interfaces/directive-arg.interface";
-import { createWatcher } from "../utils/create-watcher";
-import { errorHandler } from "../utils/error-handler";
 import { watch } from "../utils/watch";
 import { Directive } from "./directive.decorator";
 import { watchDirective } from "./utils/watch-directive";
@@ -65,7 +63,7 @@ export class ViewDirective {
         const valueSetter = param.directive.set!;
         const valueAttribute = param.element.getAttribute('value');
         if (!valueAttribute) {
-            errorHandler(`Radio buttons must have a value attribute if we want to bind a model to it.`);
+            throw `Radio buttons must have a value attribute if we want to bind a model to it.`;
         }
         param.element.addEventListener('change', (event: any) => {
             valueSetter(event.target.value)
