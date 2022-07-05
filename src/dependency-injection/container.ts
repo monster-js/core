@@ -56,7 +56,6 @@ export class Container {
          * Check if class is registered in the container
          */
         if (!sourceData) {
-
             const globalSource = new GlobalDataSource();
             if (globalSource === this.dataSource) {
                 throw `${target.name} is not registered in global dependency injection container.`;
