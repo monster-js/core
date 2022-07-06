@@ -56,7 +56,6 @@ export { ServiceWithConfigInterface } from './interfaces/service-with-config.int
 export { DirectiveInterface } from './interfaces/directive.interface';
 export { ComponentInterface } from './interfaces/component-interface';
 export { DataSourceInterface } from './interfaces/data-source.interface';
-export { SubscriptionInterface } from './interfaces/subscription.interface';
 export { AllDirectivesArgInterface } from './interfaces/all-directives-arg.interface';
 export { DirectiveArgInterface } from './interfaces/directive-arg.interface';
 
