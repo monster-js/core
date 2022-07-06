@@ -1,3 +1,4 @@
+import { fromEvent } from "rxjs";
 import { AllDirectivesArgInterface } from "../interfaces/all-directives-arg.interface";
 import { AllDirectivesImpl } from "../interfaces/impls/all-directives.impl";
 import { Directive } from "./directive.decorator";
@@ -11,6 +12,8 @@ export class EventDirective implements AllDirectivesImpl {
     }
 
     private addEventListener(key: string, directive: { get?: () => any, set?: (val?: any) => void; }, param: AllDirectivesArgInterface) {
-        param.element.addEventListener(key, directive.get!().bind(param.component));
+        const bind = directive.get!().bind(param.component);
+        const event = fromEvent(param.element, key);
+        event.subscribe(bind);
     }
 }
